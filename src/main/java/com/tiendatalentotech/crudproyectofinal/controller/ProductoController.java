@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tiendatalentotech.crudproyectofinal.dto.ProductoCrearRequestDto;
 import com.tiendatalentotech.crudproyectofinal.exception.RecursoNoEncontradoException;
 import com.tiendatalentotech.crudproyectofinal.model.Producto;
 import com.tiendatalentotech.crudproyectofinal.service.ProductoService;
@@ -31,7 +32,7 @@ public class ProductoController {
 
     //CREAR UN PRODUCTO
     @PostMapping
-    public ResponseEntity<Producto> crearProducto(@RequestBody Producto peticion){
+    public ResponseEntity<Producto> crearProducto(@RequestBody ProductoCrearRequestDto peticion){
 
         //AHORA ENTIENDO PORQUE USAN dto 🦜🦜🦜
 
@@ -58,7 +59,7 @@ public class ProductoController {
         }
     }
 
-    
+
     
 
 
