@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,10 +43,12 @@ public class CategoriaController {
         return ResponseEntity.status(201).body(nuevaCategoria);
     }
 
-    //LISTAR TODAS LAS CATEGORIAS
+    //LISTAR TODAS LAS CATEGORIAS (Para mi queda mejor devolver un ResponseEntity)
     @GetMapping() 
-    public List<Categoria> listarCategorias(){
-        return categoriaService.listarCategorias();
+    public ResponseEntity<List<Categoria>> listarCategorias(){
+        List<Categoria> listaCategorias= categoriaService.listarCategorias();
+
+        return ResponseEntity.status(HttpStatus.OK).body(listaCategorias);
     }
 
     //BUCAR CATEGORIA POR ID
@@ -60,4 +63,11 @@ public class CategoriaController {
         }
     }
 
+    //BORRAR CATEGORIA POR ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarCategoriaPorId(@PathVariable Long id){
+        categoriaService.eliminarCategoriaPorId(id);
+
+        return ResponseEntity.noContent().build();
+    }
 }

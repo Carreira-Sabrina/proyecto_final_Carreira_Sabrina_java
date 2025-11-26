@@ -39,10 +39,20 @@ public class CategoriaService {
                 .orElseThrow(()-> new RecursoNoEncontradoException("Categoria con id " + id + " no encontrada"));
     }
 
+    //Borrar categoria POR ID
+    public void eliminarCategoriaPorId(Long id){
+        //Antes de intentar borrar algo, conviene saber si existe
+        if(!categoriaRepository.existsById(id)){
+            throw new RecursoNoEncontradoException("Categoria con id " + id + " no existe");
+        }
+        categoriaRepository.deleteById(id);
+    }
+
+
     //Actualizar una categoria SOLO EL NOMBRE
 
 
-    //Borrar categoria POR ID
+    
 
     //BORRAR CATEGORIA POR NOMBRE????
 
