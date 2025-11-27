@@ -2,6 +2,7 @@ package com.tiendatalentotech.crudproyectofinal.controller;
 
 import java.util.List;
 
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,7 +37,9 @@ public class CategoriaController {
 
     //CREAR CATEGORIA
     @PostMapping
-    public ResponseEntity<Categoria> crearCategoria(@RequestBody Categoria categoria){
+    public ResponseEntity<Categoria> crearCategoria(@RequestBody Categoria categoria) throws BadRequestException{
+
+        //ACA YO QUIERO DEVOLVER EL ERROR COMO JSON TAMBIEN, COMO HAGO? 🦜🦜🦜🦜🦜
 
         Categoria nuevaCategoria = categoriaService.crearCategoria(categoria);
 

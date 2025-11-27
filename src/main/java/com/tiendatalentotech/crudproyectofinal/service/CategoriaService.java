@@ -2,6 +2,7 @@ package com.tiendatalentotech.crudproyectofinal.service;
 
 import java.util.List;
 
+import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 
 import com.tiendatalentotech.crudproyectofinal.exception.RecursoNoEncontradoException;
@@ -23,8 +24,12 @@ public class CategoriaService {
     // **** METODOS CRUD ****
     //===========================
 
-    //Crear una categoría
-    public Categoria crearCategoria(Categoria categoria){
+    //Crear una categoría NO PUEDEN HABER CATEGORIAS CON NOMBRES REPETIDOS
+    public Categoria crearCategoria(Categoria categoria) throws BadRequestException{
+        if (categoriaRepository.existsByNombre(categoria.getNombre())){
+            throw new BadRequestException("Ya existe una categoria con el nombre " + categoria.getNombre());
+        }
+
         return categoriaRepository.save(categoria);
     }
 
@@ -47,6 +52,8 @@ public class CategoriaService {
         }
         categoriaRepository.deleteById(id);
     }
+
+    
 
 
     //Actualizar una categoria SOLO EL NOMBRE
