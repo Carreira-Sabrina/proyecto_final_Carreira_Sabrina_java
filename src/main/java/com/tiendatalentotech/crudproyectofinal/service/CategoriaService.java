@@ -57,10 +57,34 @@ public class CategoriaService {
 
 
     //Actualizar una categoria SOLO EL NOMBRE
+    public Categoria actualizarCategoria(Long id, Categoria categoriaActualizada){
 
+        //Antes de modificar algo, conviene saber si existe
+        if(!categoriaRepository.existsById(id)){
+            throw new RecursoNoEncontradoException("Categoria con id " + id + " no existe");
+        }
 
+        //Muy bien, existe, ahora verificar el nombre antes de intentar guardar
+        Categoria categoriaAModificar = categoriaRepository.findById(id).get();
     
+        String nuevoNombre = categoriaActualizada.getNombre().trim();
 
-    //BORRAR CATEGORIA POR NOMBRE????
+        if(nuevoNombre == null){
+            throw new IllegalArgumentException("El nombre de la categoría no puede ser nulo.");
+        }
+
+        if (nuevoNombre.trim().isEmpty()){
+            throw new IllegalArgumentException("El nombre de la categoría no puede estar vacio.");
+        }
+
+        //Tampoco puedo dejar que se guarde un nombre que ya existe
+        if (categoriaRepository.existsByNombre(nuevoNombre)){
+            throw new IllegalArgumentException("Ya existe una categoria con el nombre " + nuevoNombre);
+        }
+
+        categoriaAModificar.setNombre(nuevoNombre);
+
+        return categoriaRepository.save(categoriaAModificar);
+    }
 
 }

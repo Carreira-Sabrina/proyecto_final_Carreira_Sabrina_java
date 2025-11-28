@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tiendatalentotech.crudproyectofinal.exception.RecursoNoEncontradoException;
 import com.tiendatalentotech.crudproyectofinal.model.Categoria;
 import com.tiendatalentotech.crudproyectofinal.service.CategoriaService;
-
-
 
 
 @RestController
@@ -43,7 +42,7 @@ public class CategoriaController {
 
         Categoria nuevaCategoria = categoriaService.crearCategoria(categoria);
 
-        return ResponseEntity.status(201).body(nuevaCategoria);
+        return ResponseEntity.status(HttpStatus.OK).body(nuevaCategoria);
     }
 
     //LISTAR TODAS LAS CATEGORIAS (Para mi queda mejor devolver un ResponseEntity)
@@ -72,5 +71,12 @@ public class CategoriaController {
         categoriaService.eliminarCategoriaPorId(id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    //ACTUALIZAR CATEGORIA
+    @PutMapping("/{id}")
+    public Categoria actualizarCategoria(@PathVariable Long id, @RequestBody Categoria categoria) {
+        
+        return categoriaService.actualizarCategoria(id, categoria);
     }
 }
