@@ -53,9 +53,6 @@ public class CategoriaService {
         categoriaRepository.deleteById(id);
     }
 
-    
-
-
     //Actualizar una categoria SOLO EL NOMBRE
     public Categoria actualizarCategoria(Long id, Categoria categoriaActualizada){
 

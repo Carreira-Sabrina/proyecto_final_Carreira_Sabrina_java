@@ -21,7 +21,8 @@ public class Producto {
     private String urlImagen;
     
     //POR EL MOMENTO LA RELACION ES UNIDIRECCIONAL  MUCHOS PRODUCTOS ➡ PERTENECEN A UNA CATEGORIA
-    @ManyToOne(fetch=FetchType.LAZY)
+    //usando FetchType.LAZY se rompe todo en Postman 🤯🤯🤯
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="categoria_id")
     private Categoria categoria;
 
